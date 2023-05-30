@@ -35,7 +35,7 @@ class MockDispatcher : Dispatcher() {
             path = path.substringBefore("?") // 剔除URL参数
         }
         return when (path) {
-            Api.TEST -> MockResponse().setHeader("Content-Type", "text/plain").setBody("Request Success : ${request.method}")
+            Api.TEST -> MockResponse().setHeader("Content-Type", "text/plain").setBody("{\"code\":100,\"data\":20230530,\"message\":\"成功\",\"page\":0,\"maxPage\":0}")
             Api.DELAY -> MockResponse().setBodyDelay(2, TimeUnit.SECONDS).setHeader("Content-Type", "text/plain").setBody("Request Success : ${request.method}")
             Api.UPLOAD -> MockResponse().setBodyDelay(1, TimeUnit.SECONDS).setHeader("Content-Type", "text/plain").setBody("Upload Success")
             Api.GAME -> getRawResponse(R.raw.game)

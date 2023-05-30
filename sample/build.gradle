@@ -4,7 +4,7 @@ apply plugin: "kotlin-kapt"
 apply plugin: 'kotlinx-serialization'
 
 android {
-    compileSdkVersion 33
+    compileSdk 33
     signingConfigs {
         signed {
             storeFile file("../signed")
@@ -15,8 +15,8 @@ android {
     }
     defaultConfig {
         applicationId "com.drake.net.sample"
-        minSdkVersion 19
-        targetSdkVersion 33
+        minSdk 19
+        targetSdk 34
         versionCode 1
         multiDexEnabled true
         versionName "1.0"
@@ -26,6 +26,7 @@ android {
     buildTypes {
         release {
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
         }
     }
@@ -34,13 +35,17 @@ android {
         enabled = true
     }
 
+    buildFeatures {
+        buildConfig true
+    }
+
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
+        jvmTarget = '17'
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     applicationVariants.all {
@@ -48,39 +53,40 @@ android {
             output.outputFileName = "net-sample.apk"
         }
     }
+    namespace "com.drake.net.sample"
 
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     testImplementation "junit:junit:4.13.2"
-    androidTestImplementation "androidx.test:runner:1.3.0"
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.3.0"
-    implementation "androidx.appcompat:appcompat:1.3.1"
-    implementation "androidx.core:core-ktx:1.9.0"
-    implementation "androidx.constraintlayout:constraintlayout:2.0.4"
+    androidTestImplementation "androidx.test:runner:1.5.2"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "androidx.core:core-ktx:1.10.1"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation "androidx.recyclerview:recyclerview:1.2.0"
-    implementation "com.google.android.material:material:1.3.0"
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    implementation "androidx.recyclerview:recyclerview:1.3.0"
+    implementation "com.google.android.material:material:1.9.0"
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
 
     // ------------------------------网络请求-------------------------------------
-    implementation project(path: ":net")
+    //implementation project(path: ":net")
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version" // 协程基础库
-    implementation "com.github.bumptech.glide:glide:4.11.0"
+    implementation "com.github.bumptech.glide:glide:4.15.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
     implementation "com.github.liangjingkanji:BRV:$brv_version" // 提供自动分页/缺省页/自动下拉刷新功能
     implementation "com.github.chuckerteam.chucker:library:3.5.2" // 通知栏监听网络日志
 
 
     // ------------------------------JSON解析-------------------------------------
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2" // JSON序列化库, 首选推荐使用
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1" // JSON序列化库, 首选推荐使用
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-protobuf:1.2.0"  // protobuf序列化
     implementation "com.squareup.moshi:moshi-kotlin:1.14.0" // JSON序列化库, 强校验, JSON字段缺失会导致解析异常, 故不推荐
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.10"
-    implementation 'com.google.code.gson:gson:2.8.6' // JSON序列化库, 会导致kotlin默认值无效, 故不推荐
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.8.21"
+    implementation 'com.google.code.gson:gson:2.10.1' // JSON序列化库, 会导致kotlin默认值无效, 故不推荐
     implementation 'com.alibaba:fastjson:1.2.73' // JSON序列化库, 会导致kotlin默认值无效(除非引入kt-reflect), 不推荐
 
     // ------------------------------其他库-------------------------------------
@@ -88,5 +94,6 @@ dependencies {
     implementation 'com.github.liangjingkanji:debugkit:1.3.0' // 开发调试窗口工具
     implementation "com.github.liangjingkanji:Tooltip:1.2.2" // 吐司工具
     implementation 'com.github.liangjingkanji:Engine:0.0.67'
+    implementation 'com.github.liangjingkanji:Net:3.5.8'
     implementation "com.squareup.okhttp3:mockwebserver:4.10.0"
 }

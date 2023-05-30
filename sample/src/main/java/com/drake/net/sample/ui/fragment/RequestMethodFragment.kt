@@ -8,6 +8,7 @@ import android.view.MenuItem
 import com.drake.engine.base.EngineFragment
 import com.drake.net.*
 import com.drake.net.sample.R
+import com.drake.net.sample.base.Result
 import com.drake.net.sample.constants.Api
 import com.drake.net.sample.databinding.FragmentRequestMethodBinding
 import com.drake.net.utils.scopeNetLife
@@ -25,7 +26,7 @@ class RequestMethodFragment :
 
     private fun GET() {
         scopeNetLife {
-            binding.tvFragment.text = Get<String>(Api.TEST).await()
+            binding.tvFragment.text = Get<Result>(Api.TEST).await().data
         }
     }
 

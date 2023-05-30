@@ -19,7 +19,7 @@ class UserViewModel : ViewModel() {
      * scopeNetLife/scopeDialog不推荐写在ViewModel中
      */
     fun fetchUserInfo() = scopeNetLife {
-        userInfo.value = Get<String>(Api.GAME).await()
+        userInfo.value = Get<String>(Api.GAME).await()!!
     }
 
     /** 返回Deferred, 可以灵活使用, 支持并发组合 */
