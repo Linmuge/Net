@@ -1,0 +1,46 @@
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+apply plugin: 'org.jetbrains.dokka'
+
+android {
+    compileSdkVersion 36
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 36
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_21
+        freeCompilerArgs = ["-Xinline-classes"]
+    }
+
+    dokkaHtml {
+        outputDirectory.set(file("$rootDir/docs/api"))
+        suppressInheritedMembers.set(true)
+        moduleName.set("Net")
+    }
+    namespace 'com.drake.net'
+}
+
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.startup:startup-runtime:1.2.0'
+    implementation 'androidx.documentfile:documentfile:1.1.0'
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.9.4"
+
+    compileOnly "com.squareup.okhttp3:okhttp:$okhttp_version"
+
+    compileOnly "com.github.liangjingkanji:BRV:$brv_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
+}
