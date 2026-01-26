@@ -31,14 +31,10 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import com.drake.brv.PageRefreshLayout
 import com.drake.net.scope.AndroidScope
 import com.drake.net.scope.DialogCoroutineScope
 import com.drake.net.scope.NetCoroutineScope
-import com.drake.net.scope.PageCoroutineScope
-import com.drake.net.scope.StateCoroutineScope
 import com.drake.net.scope.ViewCoroutineScope
-import com.drake.statelayout.StateLayout
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -137,49 +133,6 @@ fun Fragment.scopeDialog(
 // </editor-fold>
 
 
-//<editor-fold desc="视图">
-/**
- * 自动处理缺省页的异步作用域
- * 作用域开始执行时显示加载中缺省页
- * 作用域正常结束时显示成功缺省页
- * 作用域抛出异常时显示错误缺省页
- * 并且自动吐司错误信息, 可配置 [com.drake.net.interfaces.NetErrorHandler.onStateError]
- * 自动打印异常日志
- * 布局被销毁或者界面关闭作用域被取消
- * @receiver 当前视图会被缺省页包裹
- * @param dispatcher 调度器, 默认运行在[Dispatchers.Main]即主线程下
- */
-fun StateLayout.scope(
-    dispatcher: CoroutineDispatcher = Dispatchers.Main,
-    block: suspend CoroutineScope.() -> Unit
-): NetCoroutineScope {
-    val scope = StateCoroutineScope(this, dispatcher)
-    scope.launch(block)
-    return scope
-}
-
-/**
- * PageRefreshLayout的异步作用域
- *
- * 1. 下拉刷新自动结束
- * 2. 上拉加载自动结束
- * 3. 捕获异常
- * 4. 打印异常日志
- * 5. 吐司部分异常[com.drake.net.interfaces.NetErrorHandler.onStateError]
- * 6. 判断添加还是覆盖数据
- * 7. 自动显示缺省页
- *
- * 布局被销毁或者界面关闭作用域被取消
- * @param dispatcher 调度器, 默认运行在[Dispatchers.Main]即主线程下
- */
-fun PageRefreshLayout.scope(
-    dispatcher: CoroutineDispatcher = Dispatchers.Main,
-    block: suspend CoroutineScope.() -> Unit
-): PageCoroutineScope {
-    val scope = PageCoroutineScope(this, dispatcher)
-    scope.launch(block)
-    return scope
-}
 
 /**
  * 视图作用域

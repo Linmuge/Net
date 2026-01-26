@@ -1,5 +1,6 @@
 package com.drake.net.sample.ui.activity
 
+import androidx.activity.enableEdgeToEdge
 import androidx.core.view.GravityCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigator
@@ -9,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.drake.engine.base.EngineActivity
 import com.drake.net.sample.R
 import com.drake.net.sample.databinding.ActivityMainBinding
-import com.drake.statusbar.immersive
 
 /**
  * 以下代码设置导航, 和框架本身无关无需关心, 请查看[com.drake.net.sample.ui.fragment]内的Fragment
@@ -17,7 +17,8 @@ import com.drake.statusbar.immersive
 class MainActivity : EngineActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun initView() {
-        immersive(binding.toolbar, true)
+        //immersive(binding.toolbar, true)
+        enableEdgeToEdge()
         setSupportActionBar(binding.toolbar)
         val navController = findNavController(R.id.nav)
 

@@ -20,6 +20,7 @@ import com.drake.net.sample.interceptor.GlobalHeaderInterceptor
 import com.drake.net.sample.mock.MockDispatcher
 import com.drake.statelayout.StateConfig
 import com.drake.tooltip.dialog.BubbleDialog
+import com.google.android.material.color.DynamicColors
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -30,6 +31,7 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        DynamicColors.applyToActivitiesIfAvailable(this)
 
         NetConfig.initialize(Api.HOST, this) {
 
